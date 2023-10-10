@@ -1,10 +1,11 @@
+import { produce } from "immer";
 import React, { useState } from "react";
 
-interface Tree {
+interface TreeNode {
   id: number;
   //   parentId: number;
   name: string;
-  children: Tree[];
+  children: TreeNode[];
 }
 
 const exampleTree = {
@@ -31,6 +32,34 @@ const exampleTree = {
   ],
 };
 
-const useTree = (initialState: Tree = exampleTree) => {
+const useTree = (initialState: TreeNode = exampleTree) => {
   const [treeState, setTreeState] = useState(initialState);
+
+  const findNodeById = (id: number, node: TreeNode): TreeNode | null => {
+    if (node.id === id) return node;
+    if (!node.children || node.children.length === 0) return null;
+    let found = null;
+    for (let n of node.children) {
+      if (found) break;
+      found = findNodeById(id, n);
+    }
+    return found;
+  };
+
+  const addChildToNode = (id: number, newNode: TreeNode) => {
+    setTreeState(
+      produce((draft: any) => {
+        const currNode = findNodeById(id, draft);
+        if (currNode) {
+          currNode.children.push(newNode);
+        } else {
+          console.log("Error");
+        }
+      })
+    );
+  };
+
+  return { treeState, findNodeById, addChildToNode };
 };
+
+export default useTree;

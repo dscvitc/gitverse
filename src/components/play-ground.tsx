@@ -1,5 +1,6 @@
 "use client";
 
+import useTree from "@/utils/useTree";
 import React, { useState } from "react";
 import { Tree } from "react-d3-tree";
 
@@ -11,40 +12,34 @@ const PlayGround: React.FC = () => {
   const [branches, setBranches] = useState<string[]>(["master"]);
   const [currentBranch, setCurrentBranch] = useState<string>("master");
 
-  const [headPointer, setHeadPointer] = useState<number>(1);
+  const [headPointer, setHeadPointer] = useState<number>(2);
 
-  // Example tree data
-  const treeData = {
-    name: "Root",
-    id: "root",
-    children: [
-      {
-        name: "Node 1",
-        id: 1,
-        children: [
-          { name: "Leaf 1", id: 3 },
-          { name: "Leaf 2", id: 4 },
-          { name: "Leaf 3", id: 5 },
-        ],
-      },
-      {
-        name: "Node 2",
-        id: 2,
-        children: [
-          { name: "Leaf 4", id: 6 },
-          { name: "Leaf 5", id: 7 },
-        ],
-      },
-    ],
-  };
+  const { treeState, addChildToNode } = useTree();
 
-  const traversal = (id: number, root: any) => {
-    if (root) {
-      
-    }
-  };
-
-  const [treeState, setTreeState] = useState(treeData);
+  // // Example tree data
+  // const treeData = {
+  //   name: "Root",
+  //   id: "root",
+  //   children: [
+  //     {
+  //       name: "Node 1",
+  //       id: 1,
+  //       children: [
+  //         { name: "Leaf 1", id: 3 },
+  //         { name: "Leaf 2", id: 4 },
+  //         { name: "Leaf 3", id: 5 },
+  //       ],
+  //     },
+  //     {
+  //       name: "Node 2",
+  //       id: 2,
+  //       children: [
+  //         { name: "Leaf 4", id: 6 },
+  //         { name: "Leaf 5", id: 7 },
+  //       ],
+  //     },
+  //   ],
+  // };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -58,6 +53,7 @@ const PlayGround: React.FC = () => {
 
   const handleCommit = () => {
     setOutput([...output, `Commit created on branch ${currentBranch}: ${input}`]);
+    addChildToNode(headPointer, { id: 8, name: "New Node", children: [] });
     setInput("");
   };
 
