@@ -20,6 +20,23 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Project Overview
+
+The aim of the project is to have a fully working git sandbox in-browser with the ability to view the git tree and the repository contents at any point. The project will visualise the branches of the repository similar to the one at [learngitbranching.js.org](https://learngitbranching.js.org/). The graph will show the user the tree of branches, the active branch as well as branch names
+
+The user will be able to interact with the repository state at each node of the working tree and see the files present.
+
+The user will be able to use the terminal to not only to use git but to interact with the active branch through basic commands like `touch`, `rm`, `mkdir`, and `mv`.
+
+This concludes the majority of the functionality of the sandbox.
+
+In addition to the above, we will implement a tutorial system that works within the sandbox by providing an objective, the steps required and the capability to run code to test if the objective has been reached.
+
+To recapitulate, the three main components are
+- A git sandbox with a fully working implementation of git, linked to a repository tree state.
+- A graph to visualise the repository tree state
+- A tutorial system that sets objectives and tests the repository state to see if the result was acheived.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
